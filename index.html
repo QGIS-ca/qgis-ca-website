@@ -1,624 +1,526 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>QGIS Tanzania User Group</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>QGIS Tanzania User Group</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        font-size: 16px;
-        line-height: 1.6;
-        color: #2d3748;
-        background: linear-gradient(
-            135deg,
-            rgba(247, 250, 252, 0.95) 0%,
-            rgba(237, 242, 247, 0.95) 100%
-          ),
-          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><path d="M400 50 L450 80 L480 120 L500 180 L510 240 L500 300 L480 360 L450 420 L420 460 L380 480 L340 490 L300 485 L260 470 L230 440 L210 400 L200 350 L205 300 L220 250 L240 200 L270 150 L310 110 L350 80 L400 50 Z M420 100 L440 120 L455 150 L465 190 L470 230 L465 270 L450 310 L430 340 L410 360 L385 370 L360 365 L340 350 L325 325 L315 295 L312 260 L318 225 L330 190 L350 160 L375 135 L400 120 L420 100 Z" fill="%2393b023" opacity="0.08"/><circle cx="380" cy="200" r="8" fill="%23589632" opacity="0.15"/><circle cx="340" cy="280" r="6" fill="%23589632" opacity="0.12"/><circle cx="420" cy="320" r="5" fill="%2393b023" opacity="0.1"/></svg>')
-            no-repeat right center;
-        background-size: cover, 40%;
-        background-attachment: fixed;
-        overflow-x: hidden;
-      }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #2d3748;
+      background: linear-gradient(135deg, rgba(247, 250, 252, 0.95) 0%, rgba(237, 242, 247, 0.95) 100%),
+                  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><path d="M400 50 L450 80 L480 120 L500 180 L510 240 L500 300 L480 360 L450 420 L420 460 L380 480 L340 490 L300 485 L260 470 L230 440 L210 400 L200 350 L205 300 L220 250 L240 200 L270 150 L310 110 L350 80 L400 50 Z M420 100 L440 120 L455 150 L465 190 L470 230 L465 270 L450 310 L430 340 L410 360 L385 370 L360 365 L340 350 L325 325 L315 295 L312 260 L318 225 L330 190 L350 160 L375 135 L400 120 L420 100 Z" fill="%2393b023" opacity="0.08"/><circle cx="380" cy="200" r="8" fill="%23589632" opacity="0.15"/><circle cx="340" cy="280" r="6" fill="%23589632" opacity="0.12"/><circle cx="420" cy="320" r="5" fill="%2393b023" opacity="0.1"/></svg>') no-repeat right center;
+      background-size: cover, 40%;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
 
-      a {
-        color: #589632;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-      }
+    a {
+      color: #589632;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
 
-      a:hover {
-        color: #93b023;
-      }
+    a:hover {
+      color: #93b023;
+    }
 
-      /* Navigation */
-      .navbar {
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        border-bottom: 3px solid #589632;
-      }
+    /* Navigation */
+    .navbar {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid #589632;
+    }
 
-      .nav-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-      }
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-      .nav-brand {
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: #589632;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #589632;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-menu a {
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #93b023;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .user-group-select {
+      padding: 0.6rem 1rem;
+      border: 2px solid #589632;
+      border-radius: 8px;
+      background: white;
+      color: #589632;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .user-group-select:hover {
+      background: #589632;
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      color: #589632;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+      text-shadow: 2px 2px 4px rgba(88, 150, 50, 0.1);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page-nav {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .page-nav li a {
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .page-nav li a:hover {
+      background: rgba(88, 150, 50, 0.1);
+    }
+
+    .hero-description {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: #4a5568;
+      max-width: 700px;
+      margin: 2rem 0;
+    }
+
+    .osgeo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-top: 1rem;
+    }
+
+    /* Feature Cards */
+    .features {
+      max-width: 1400px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border-top: 4px solid #589632;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(88, 150, 50, 0.15);
+    }
+
+    .feature-card h3 {
+      color: #589632;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      color: #4a5568;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* Content Sections */
+    .content-section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 3rem 2rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      color: #589632;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #589632, #93b023);
+      border-radius: 2px;
+    }
+
+    .section-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #4a5568;
+    }
+
+    .section-content ul {
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .section-content li {
+      margin: 1rem 0;
+      padding-left: 0.5rem;
+    }
+
+    .meeting-info {
+      background: linear-gradient(135deg, #589632, #93b023);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+    }
+
+    .meeting-info strong {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, #589632, #93b023);
+      color: white;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .social-links {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: white;
+      transform: scale(1.1);
+    }
+
+    .social-links a svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+      transition: fill 0.3s ease;
+    }
+
+    .social-links a:hover svg {
+      fill: #589632;
+    }
+
+    .footer-text {
+      opacity: 0.9;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
       .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 2rem;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .nav-menu a {
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        letter-spacing: 0.5px;
-        padding: 0.5rem 0;
-        position: relative;
-      }
-
-      .nav-menu a::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: #93b023;
-        transition: width 0.3s ease;
-      }
-
-      .nav-menu a:hover::after {
-        width: 100%;
-      }
-
-      .user-group-select {
-        padding: 0.6rem 1rem;
-        border: 2px solid #589632;
-        border-radius: 8px;
-        background: white;
-        color: #589632;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 0.9rem;
-      }
-
-      .user-group-select:hover {
-        background: #589632;
-        color: white;
-      }
-
-      /* Hero Section */
-      .hero {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 4rem 2rem;
+        flex-direction: column;
+        gap: 1rem;
       }
 
       .hero-title {
-        font-size: clamp(2.5rem, 6vw, 5rem);
-        font-weight: 900;
-        color: #589632;
-        margin-bottom: 1rem;
-        letter-spacing: -1px;
-        text-shadow: 2px 2px 4px rgba(88, 150, 50, 0.1);
-        animation: fadeInUp 0.8s ease;
+        font-size: 2.5rem;
       }
 
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      .features {
+        grid-template-columns: 1fr;
       }
 
       .page-nav {
-        list-style: none;
-        display: flex;
-        gap: 2rem;
-        margin: 2rem 0;
-        flex-wrap: wrap;
-      }
-
-      .page-nav li a {
-        font-size: 1.1rem;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-      }
-
-      .page-nav li a:hover {
-        background: rgba(88, 150, 50, 0.1);
-      }
-
-      .hero-description {
-        font-size: 1.3rem;
-        line-height: 1.8;
-        color: #4a5568;
-        max-width: 700px;
-        margin: 2rem 0;
-      }
-
-      .osgeo-badge {
-        display: inline-flex;
-        align-items: center;
+        flex-direction: column;
         gap: 0.5rem;
-        padding: 0.8rem 1.2rem;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        margin-top: 1rem;
       }
-
-      /* Feature Cards */
-      .features {
-        max-width: 1400px;
-        margin: 4rem auto;
-        padding: 0 2rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-      }
-
-      .feature-card {
-        background: white;
-        padding: 2rem;
-        border-radius: 16px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        border-top: 4px solid #589632;
-      }
-
-      .feature-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 32px rgba(88, 150, 50, 0.15);
-      }
-
-      .feature-card h3 {
-        color: #589632;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        font-weight: 700;
-      }
-
-      .feature-card p {
-        color: #4a5568;
-        line-height: 1.7;
-        font-size: 1.05rem;
-      }
-
-      /* Content Sections */
-      .content-section {
-        max-width: 1200px;
-        margin: 4rem auto;
-        padding: 3rem 2rem;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-      }
-
-      .section-title {
-        font-size: 2.5rem;
-        color: #589632;
-        margin-bottom: 1.5rem;
-        font-weight: 700;
-        position: relative;
-        padding-bottom: 1rem;
-      }
-
-      .section-title::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 80px;
-        height: 4px;
-        background: linear-gradient(90deg, #589632, #93b023);
-        border-radius: 2px;
-      }
-
-      .section-content {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #4a5568;
-      }
-
-      .section-content ul {
-        margin: 1.5rem 0;
-        padding-left: 1.5rem;
-      }
-
-      .section-content li {
-        margin: 1rem 0;
-        padding-left: 0.5rem;
-      }
-
-      .meeting-info {
-        background: linear-gradient(135deg, #589632, #93b023);
-        color: white;
-        padding: 2rem;
-        border-radius: 12px;
-        margin-top: 2rem;
-      }
-
-      .meeting-info strong {
-        display: block;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
-
-      /* Footer */
-      .footer {
-        background: linear-gradient(135deg, #589632, #93b023);
-        color: white;
-        padding: 3rem 2rem;
-        margin-top: 4rem;
-      }
-
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        text-align: center;
-      }
-
-      .social-links {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin: 2rem 0;
-      }
-
-      .social-links a {
-        display: inline-flex;
-        width: 48px;
-        height: 48px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        transition: all 0.3s ease;
-      }
-
-      .social-links a:hover {
-        background: white;
-        transform: scale(1.1);
-      }
-
-      .social-links a svg {
-        width: 24px;
-        height: 24px;
-        fill: white;
-        transition: fill 0.3s ease;
-      }
-
-      .social-links a:hover svg {
-        fill: #589632;
-      }
-
-      .footer-text {
-        opacity: 0.9;
-        font-size: 0.95rem;
-        margin-top: 1rem;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .nav-menu {
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .hero-title {
-          font-size: 2.5rem;
-        }
-
-        .features {
-          grid-template-columns: 1fr;
-        }
-
-        .page-nav {
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <img
-            src="https://qgis.org/styleguide/visual/qgis-icon128.svg"
-            alt="QGIS Logo"
-            style="height: 40px; width: 40px"
-          />
-          QGIS Tanzania
-        </div>
-        <ul class="nav-menu">
-          <li>
-            <a href="http://qgis.org/en/site/about/index.html">Discover QGIS</a>
-          </li>
-          <li>
-            <a href="http://qgis.org/en/site/forusers/index.html">For Users</a>
-          </li>
-          <li>
-            <a href="http://qgis.org/en/docs/index.html">Documentation</a>
-          </li>
-          <li>
-            <select
-              class="user-group-select"
-              id="other_groups"
-              onchange="if(this.value) window.location=this.value"
-            >
-              <option value="">Other User Groups</option>
-              <optgroup label="Africa">
-                <option value="#" selected>Tanzania</option>
-              </optgroup>
-              <optgroup label="America">
-                <option value="http://qgis.us/">U.S.A.</option>
-              </optgroup>
-              <optgroup label="Europe">
-                <option value="http://www.qgis.nl/">Holland</option>
-                <option value="https://ieqgis.wordpress.com/category/qgis/">
-                  Ireland
-                </option>
-                <option value="http://www.qgis.it/">Italy</option>
-                <option value="http://qgis.pt/">Portugal</option>
-                <option value="http://qgis.ch">Switzerland</option>
-                <option value="http://qgis.uk/">UK</option>
-              </optgroup>
-              <optgroup label="Oceania">
-                <option value="https://sites.google.com/site/ausqgis/home">
-                  Australia &amp; NZ
-                </option>
-              </optgroup>
-            </select>
-          </li>
-        </ul>
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="https://qgis.org/styleguide/visual/qgis-icon128.svg" alt="QGIS Logo" style="height: 40px; width: 40px;">
+        QGIS Tanzania
       </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1 class="hero-title">QGIS Tanzania User Group</h1>
-      <ul class="page-nav">
-        <li><a href="#about">About</a></li>
-        <li><a href="#meetings">Meetings</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="http://qgis.org" target="_blank">QGIS.org</a></li>
+      <ul class="nav-menu">
+        <li><a href="http://qgis.org/en/site/about/index.html">Discover QGIS</a></li>
+        <li><a href="http://qgis.org/en/site/forusers/index.html">For Users</a></li>
+        <li><a href="http://qgis.org/en/docs/index.html">Documentation</a></li>
+        <li>
+          <select class="user-group-select" id="other_groups" onchange="if(this.value) window.location=this.value">
+            <option value="">Other User Groups</option>
+            <optgroup label="Africa">
+              <option value="#" selected>Tanzania</option>
+            </optgroup>
+            <optgroup label="America">
+              <option value="http://qgis.us/">U.S.A.</option>
+            </optgroup>
+            <optgroup label="Europe">
+              <option value="http://www.qgis.nl/">Holland</option>
+              <option value="https://ieqgis.wordpress.com/category/qgis/">Ireland</option>
+              <option value="http://www.qgis.it/">Italy</option>
+              <option value="http://qgis.pt/">Portugal</option>
+              <option value="http://qgis.ch">Switzerland</option>
+              <option value="http://qgis.uk/">UK</option>
+            </optgroup>
+            <optgroup label="Oceania">
+              <option value="https://sites.google.com/site/ausqgis/home">Australia &amp; NZ</option>
+            </optgroup>
+          </select>
+        </li>
       </ul>
-      <p class="hero-description">
-        Supporting Tanzania-based users of <a href="http://qgis.org">QGIS</a>, a
-        free and open source Geographic Information System.
-      </p>
-      <div class="osgeo-badge">QGIS is an OSGeo project</div>
-    </section>
+    </div>
+  </nav>
 
-    <!-- Feature Cards -->
-    <section class="features">
-      <div class="feature-card">
-        <h3>User Meetings</h3>
-        <p>
-          Join our monthly meetings in Dar es Salaam and other major cities.
-          <a href="#meetings">Details »</a>
-        </p>
-      </div>
-      <div class="feature-card">
-        <h3>Online Discussions</h3>
-        <p>
-          <a href="https://lists.osgeo.org/mailman/listinfo/tanzania-gis"
-            >Join our mailing list</a
-          >
-          to discuss GIS projects, challenges, and opportunities in Tanzania.
-        </p>
-      </div>
-      <div class="feature-card">
-        <h3>Learn about QGIS</h3>
-        <p>
-          <a href="http://qgis.org/en/site/">QGIS</a> is the most popular open
-          source GIS desktop tool in the world.
-        </p>
-      </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="hero-title">QGIS Tanzania User Group</h1>
+    <ul class="page-nav">
+      <li><a href="#about">About</a></li>
+      <li><a href="#meetings">Meetings</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="http://qgis.org" target="_blank">QGIS.org</a></li>
+    </ul>
+    <p class="hero-description">
+      Supporting Tanzania-based users of <a href="http://qgis.org">QGIS</a>, a free and open source Geographic Information System.
+    </p>
+    <div class="osgeo-badge">
+      QGIS is an OSGeo project
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section class="content-section" id="about">
-      <h2 class="section-title">Group Goals</h2>
-      <div class="section-content">
-        <ul>
-          <li>
-            Promote the use of QGIS in Tanzania's government agencies, NGOs, and
-            private sector
-          </li>
-          <li>Provide training and support for new QGIS users in Tanzania</li>
-          <li>
-            Coordinate local QGIS development and customization for Tanzanian
-            needs
-          </li>
-          <li>
-            Share information about QGIS through meetings, social media, and
-            local GIS events
-          </li>
-          <li>Support translation of QGIS documentation into Swahili</li>
-          <li>
-            Create specialized modules for local applications (agriculture,
-            urban planning, conservation)
-          </li>
-          <li>Organize regular user meetings across major Tanzanian cities</li>
-          <li>Connect Tanzanian QGIS users with the global QGIS community</li>
-        </ul>
-      </div>
-    </section>
+  <!-- Feature Cards -->
+  <section class="features">
+    <div class="feature-card">
+      <h3>User Meetings</h3>
+      <p>Join our monthly meetings in Dar es Salaam and other major cities. <a href="#meetings">Details »</a></p>
+    </div>
+    <div class="feature-card">
+      <h3>Online Discussions</h3>
+      <p><a href="https://lists.osgeo.org/mailman/listinfo/tanzania-gis">Join our mailing list</a> to discuss GIS projects, challenges, and opportunities in Tanzania.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Learn about QGIS</h3>
+      <p><a href="http://qgis.org/en/site/">QGIS</a> is the most popular open source GIS desktop tool in the world.</p>
+    </div>
+  </section>
 
-    <!-- Meetings Section -->
-    <section class="content-section" id="meetings">
-      <h2 class="section-title">Join Our Community</h2>
-      <div class="section-content">
-        <p>
-          We hold monthly meetings in Dar es Salaam on the first Thursday of
-          each month. Regional chapters in Arusha, Mwanza, and Dodoma meet
-          regularly as well. Our meetings include:
-        </p>
-        <ul>
-          <li>QGIS tutorials and workshops</li>
-          <li>Presentations of local GIS projects</li>
-          <li>Problem-solving sessions</li>
-          <li>Networking opportunities</li>
-        </ul>
-        <div class="meeting-info">
-          <strong>Next Meeting</strong>
-          <p>
-            Date: First Thursday of next month<br />
-            Time: 14:00 - 17:00<br />
-            Location: Tanzania Commission for Science and Technology (COSTECH),
-            Dar es Salaam<br />
-            Topic: Introduction to QGIS for Conservation Planning
-          </p>
-        </div>
-      </div>
-    </section>
+  <!-- About Section -->
+  <section class="content-section" id="about">
+    <h2 class="section-title">Group Goals</h2>
+    <div class="section-content">
+      <ul>
+        <li>Promote the use of QGIS in Tanzania's government agencies, NGOs, and private sector</li>
+        <li>Provide training and support for new QGIS users in Tanzania</li>
+        <li>Coordinate local QGIS development and customization for Tanzanian needs</li>
+        <li>Share information about QGIS through meetings, social media, and local GIS events</li>
+        <li>Support translation of QGIS documentation into Swahili</li>
+        <li>Create specialized modules for local applications (agriculture, urban planning, conservation)</li>
+        <li>Organize regular user meetings across major Tanzanian cities</li>
+        <li>Connect Tanzanian QGIS users with the global QGIS community</li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- New Users Section -->
-    <section class="content-section">
-      <h2 class="section-title">New to QGIS? Join us!</h2>
-      <div class="section-content">
-        <p>
-          Whether you're a GIS professional or just getting started, our
-          community welcomes you. We offer regular training sessions and
-          workshops suitable for beginners. Our members work in various sectors
-          including land management, conservation, urban planning, and
-          agriculture.
-        </p>
+  <!-- Meetings Section -->
+  <section class="content-section" id="meetings">
+    <h2 class="section-title">Join Our Community</h2>
+    <div class="section-content">
+      <p>We hold monthly meetings in Dar es Salaam on the first Thursday of each month. Regional chapters in Arusha, Mwanza, and Dodoma meet regularly as well. Our meetings include:</p>
+      <ul>
+        <li>QGIS tutorials and workshops</li>
+        <li>Presentations of local GIS projects</li>
+        <li>Problem-solving sessions</li>
+        <li>Networking opportunities</li>
+      </ul>
+      <div class="meeting-info">
+        <strong>Next Meeting</strong>
+        <p>Date: First Thursday of next month<br>
+        Time: 14:00 - 17:00<br>
+        Location: Tanzania Commission for Science and Technology (COSTECH), Dar es Salaam<br>
+        Topic: Introduction to QGIS for Conservation Planning</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Online Community Section -->
-    <section class="content-section">
-      <h2 class="section-title">Connect Online</h2>
-      <div class="section-content">
-        <p>Join our active online community through:</p>
-        <ul>
-          <li>
-            Our
-            <a href="https://lists.osgeo.org/mailman/listinfo/tanzania-gis"
-              >mailing list</a
-            >
-            for discussions and announcements
-          </li>
-          <li>WhatsApp group for quick questions and updates</li>
-          <li>Quarterly virtual meetups for remote members</li>
-        </ul>
-      </div>
-    </section>
+  <!-- New Users Section -->
+  <section class="content-section">
+    <h2 class="section-title">New to QGIS? Join us!</h2>
+    <div class="section-content">
+      <p>Whether you're a GIS professional or just getting started, our community welcomes you. We offer regular training sessions and workshops suitable for beginners. Our members work in various sectors including land management, conservation, urban planning, and agriculture.</p>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section class="content-section" id="contact">
-      <h2 class="section-title">Stay Connected</h2>
-      <div class="section-content">
-        <p>
-          Follow our updates on
-          <a href="https://twitter.com/QGISTanzania">Twitter</a> and join our
-          <a href="https://lists.osgeo.org/mailman/listinfo/tanzania-gis"
-            >Mailing List</a
-          >. For general inquiries, email us at qgis.tanzania@gmail.com
-        </p>
-      </div>
-    </section>
+  <!-- Online Community Section -->
+  <section class="content-section">
+    <h2 class="section-title">Connect Online</h2>
+    <div class="section-content">
+      <p>Join our active online community through:</p>
+      <ul>
+        <li>Our <a href="https://lists.osgeo.org/mailman/listinfo/tanzania-gis">mailing list</a> for discussions and announcements</li>
+        <li>WhatsApp group for quick questions and updates</li>
+        <li>Quarterly virtual meetups for remote members</li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <ul class="social-links">
-          <li>
-            <a href="https://twitter.com/QGISTanzania" aria-label="Twitter">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.facebook.com/groups/qgistanzania"
-              aria-label="Facebook"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                <path
-                  d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="http://github.com/qgis/" aria-label="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
-                <path
-                  d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
-        <p class="footer-text">
-          If not stated otherwise, all content is licensed under
-          <a
-            href="http://creativecommons.org/licenses/by-sa/3.0/"
-            style="color: white; text-decoration: underline"
-            >Creative Commons Attribution-ShareAlike 3.0 licence (CC BY-SA)</a
-          >
-        </p>
-        <p class="footer-text">
-          Select graphics from
-          <a
-            href="http://thenounproject.com"
-            style="color: white; text-decoration: underline"
-            >The Noun Project</a
-          >
-        </p>
-        <p class="footer-text">Made by Hemed Lungo</p>
-      </div>
-    </footer>
-  </body>
+  <!-- Contact Section -->
+  <section class="content-section" id="contact">
+    <h2 class="section-title">Stay Connected</h2>
+    <div class="section-content">
+      <p>Follow our updates on <a href="https://twitter.com/QGISTanzania">Twitter</a> and join our <a href="https://lists.osgeo.org/mailman/listinfo/tanzania-gis">Mailing List</a>. For general inquiries, email us at qgis.tanzania@gmail.com</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <ul class="social-links">
+        <li>
+          <a href="https://twitter.com/QGISTanzania" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/groups/qgistanzania" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+              <path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z" />
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="http://github.com/qgis/" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+              <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <p class="footer-text">If not stated otherwise, all content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" style="color: white; text-decoration: underline;">Creative Commons Attribution-ShareAlike 3.0 licence (CC BY-SA)</a></p>
+      <p class="footer-text">Select graphics from <a href="http://thenounproject.com" style="color: white; text-decoration: underline;">The Noun Project</a></p>
+    </div>
+  </footer>
+</body>
 </html>
