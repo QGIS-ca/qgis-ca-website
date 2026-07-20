@@ -1,5 +1,5 @@
-QGIS User Group website files licensing
-=======================================
+QGIS Canada User Group website files licensing
+==============================================
 
 Copyright (c) 2026 QGIS Canada User Group.  
 
