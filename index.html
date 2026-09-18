@@ -25,6 +25,13 @@
       overflow-x: hidden;
     }
 
+    /* Bilingual text: every visible string exists twice in the markup,
+       in a span.en and a span.fr sitting next to each other. The class on
+       <body> hides one of the two. When editing content, update BOTH spans.
+       See the note at the top of <body>. */
+    body.lang-fr .en { display: none; }
+    body.lang-en .fr { display: none; }
+
     a {
       color: #589632;
       text-decoration: none;
@@ -110,6 +117,25 @@
     }
 
     .user-group-select:hover {
+      background: #589632;
+      color: white;
+    }
+
+    /* Language toggle button, styled to match the select next to it */
+    .lang-toggle {
+      padding: 0.6rem 1rem;
+      border: 2px solid #589632;
+      border-radius: 8px;
+      background: white;
+      color: #589632;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+    }
+
+    .lang-toggle:hover {
       background: #589632;
       color: white;
     }
@@ -276,7 +302,7 @@
       font-size: 1.5rem;
       margin-bottom: 1rem;
     }
-    
+
     .meeting-info a {
       color: #ffffff;
       text-decoration: underline;
@@ -289,7 +315,7 @@
       background: rgba(255, 255, 255, 0.15);
       padding: 0 4px;
       border-radius: 3px;
-    }    
+    }
 
     /* Footer */
     .footer {
@@ -369,7 +395,19 @@
     }
   </style>
 </head>
-<body>
+<body class="lang-en">
+  <!--
+    HOW TO EDIT THIS PAGE
+    All visible text exists in two versions, side by side:
+      <span class="en">English text</span>
+      <span class="fr">Texte français</span>
+    When adding or changing anything, update both spans. If you cannot
+    provide the translation, still add the second span with a TODO note
+    so someone else can fill it in.
+    The language button, the <html lang> attribute and the remembered
+    preference are handled by the short script at the bottom of the file.
+  -->
+
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
@@ -378,60 +416,81 @@
         QGIS Canada
       </div>
       <ul class="nav-menu">
-        <li><a href="https://qgis.org/en/site/about/index.html" target="_blank">Discover QGIS</a></li>
-        <!--<li><a href="https://qgis.org/en/site/forusers/index.html">For Users</a></li>-->
-        <li><a href="https://qgis.org/en/docs/index.html" target="_blank">Documentation</a></li>
-        <li><a href="https://qgis.org/download/" target="_blank">Download</a></li>
         <li>
+          <a href="https://qgis.org/en/site/about/index.html" target="_blank">
+            <span class="en">Discover QGIS</span>
+            <span class="fr">Découvrir QGIS</span>
+          </a>
+        </li>
+        <!--<li><a href="https://qgis.org/en/site/forusers/index.html">For Users</a></li>-->
+        <li>
+          <a href="https://qgis.org/en/docs/index.html" target="_blank">
+            <span class="en">Documentation</span>
+            <span class="fr">Documentation</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://qgis.org/download/" target="_blank">
+            <span class="en">Download</span>
+            <span class="fr">Télécharger</span>
+          </a>
+        </li>
+        <li>
+          <!-- Options are kept bilingual ("English / Français") to avoid
+               duplicating the whole select. When adding a user group, keep
+               that format. -->
           <select class="user-group-select" id="other_groups" onchange="if(this.value && this.value !== '#') { window.open(this.value, '_blank'); this.selectedIndex = 0; }">
-            <option value="">Other User Groups</option>
-            <optgroup label="Africa">
-              <option value="https://dz.qgis.org/">Algeria</option>
+            <option value="">Other User Groups / Autres groupes</option>
+            <optgroup label="Africa / Afrique">
+              <option value="https://dz.qgis.org/">Algeria / Algérie</option>
               <option value="https://qgisghana.org/">Ghana</option>
               <option value="https://qgis.or.ke/">Kenya</option>
-              <option value="https://heed725.github.io/qgistz/">Tanzania</option>
+              <option value="https://heed725.github.io/qgistz/">Tanzania / Tanzanie</option>
             </optgroup>
-            <optgroup label="Asia">
-              <option value="https://qgis.am/">Armenia</option>
-              <option value="https://in.qgis.org/">India</option>
-              <option value="https://qgis-id.github.io/">Indonesia</option>
-              <option value="https://qgis.jp/">Japan</option>
-            </optgroup>            
+            <optgroup label="Asia / Asie">
+              <option value="https://qgis.am/">Armenia / Arménie</option>
+              <option value="https://in.qgis.org/">India / Inde</option>
+              <option value="https://qgis-id.github.io/">Indonesia / Indonésie</option>
+              <option value="https://qgis.jp/">Japan / Japon</option>
+            </optgroup>
             <optgroup label="Europe">
-              <option value="https://qgis-al.blogspot.com/">Albania</option>
-              <option value="https://qgis.dk/">Denmark</option>
+              <option value="https://qgis-al.blogspot.com/">Albania / Albanie</option>
+              <option value="https://qgis.dk/">Denmark / Danemark</option>
               <option value="https://www.osgeo.fr/association/qgis-fr/">France</option>
-              <option value="https://qgis.de/">Germany</option>
-              <option value="https://ieqgis.com/category/qgis/">Ireland</option>
-              <option value="http://www.qgis.it/">Italy</option>
-              <option value="https://qgis.nl/">Netherlands</option>
-              <option value="https://qgis-mk.blogspot.com/">North Macedonia</option>
-              <option value="https://www.qgis.no/">Norway</option>
-              <option value="https://qgis.pl/">Poland</option>              
+              <option value="https://qgis.de/">Germany / Allemagne</option>
+              <option value="https://ieqgis.com/category/qgis/">Ireland / Irlande</option>
+              <option value="http://www.qgis.it/">Italy / Italie</option>
+              <option value="https://qgis.nl/">Netherlands / Pays-Bas</option>
+              <option value="https://qgis-mk.blogspot.com/">North Macedonia / Macédoine du Nord</option>
+              <option value="https://www.qgis.no/">Norway / Norvège</option>
+              <option value="https://qgis.pl/">Poland / Pologne</option>
               <option value="https://www.qgis.pt/">Portugal</option>
-              <option value="https://qgis.ro/">Romania</option>
-              <option value="https://qgis.sk/">Slovakia</option>
-              <option value="https://www.qgis.es/">Spain</option>
-              <option value="https://www.qgis.se/">Sweden</option>
-              <option value="https://www.qgis.ch/">Switzerland</option>
-              <option value="https://uk.osgeo.org/qgis.html">UK</option>
+              <option value="https://qgis.ro/">Romania / Roumanie</option>
+              <option value="https://qgis.sk/">Slovakia / Slovaquie</option>
+              <option value="https://www.qgis.es/">Spain / Espagne</option>
+              <option value="https://www.qgis.se/">Sweden / Suède</option>
+              <option value="https://www.qgis.ch/">Switzerland / Suisse</option>
+              <option value="https://uk.osgeo.org/qgis.html">UK / Royaume-Uni</option>
             </optgroup>
-            <optgroup label="Latin America and the Caribbean">
-              <option value="http://qgis.ar/">Argentina</option>
-              <option value="https://qgisbrasil.org/">Brazil</option>
-              <option value="https://github.com/qgisco">Colombia</option>
-              <option value="https://qgis.ec/">Ecuador</option>
-              <option value="https://qgis.mx/">Mexico</option>
-              <option value="https://qgis.pe/">Peru</option>
-            </optgroup>             
-            <optgroup label="North America">
+            <optgroup label="Latin America and the Caribbean / Amérique latine et Caraïbes">
+              <option value="http://qgis.ar/">Argentina / Argentine</option>
+              <option value="https://qgisbrasil.org/">Brazil / Brésil</option>
+              <option value="https://github.com/qgisco">Colombia / Colombie</option>
+              <option value="https://qgis.ec/">Ecuador / Équateur</option>
+              <option value="https://qgis.mx/">Mexico / Mexique</option>
+              <option value="https://qgis.pe/">Peru / Pérou</option>
+            </optgroup>
+            <optgroup label="North America / Amérique du Nord">
               <option value="#" selected>Canada</option>
-              <option value="https://www.qgis-us.org/">United States</option>
-            </optgroup> 
-            <optgroup label="Oceania">
-              <option value="https://qgis-australia.org/">Australia</option>
+              <option value="https://www.qgis-us.org/">United States / États-Unis</option>
+            </optgroup>
+            <optgroup label="Oceania / Océanie">
+              <option value="https://qgis-australia.org/">Australia / Australie</option>
             </optgroup>
           </select>
+        </li>
+        <li>
+          <button type="button" id="btn-lang" class="lang-toggle">FR</button>
         </li>
       </ul>
     </div>
@@ -439,106 +498,238 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1 class="hero-title">QGIS Canada User Group</h1>
+    <h1 class="hero-title">
+      <span class="en">QGIS Canada User Group</span>
+      <span class="fr">Groupe&nbsp;d'utilisateurs QGIS&nbsp;Canada</span>
+    </h1>
     <ul class="page-nav">
-      <li><a href="#about">About</a></li>
-      <li><a href="#meetings">Meetings</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li>
+        <a href="#about">
+          <span class="en">About</span>
+          <span class="fr">À propos</span>
+        </a>
+      </li>
+      <li>
+        <a href="#meetings">
+          <span class="en">Meetings</span>
+          <span class="fr">Rencontres</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contact">
+          <span class="en">Contact</span>
+          <span class="fr">Nous joindre</span>
+        </a>
+      </li>
       <li><a href="https://qgis.org/" target="_blank">QGIS.org</a></li>
     </ul>
     <p class="hero-description">
-      Supporting <span>&#127464;&#127462;</span> Canada-based users of <a href="https://qgis.org/">QGIS</a>, a free and Open Source Geographic Information System.
+      <span class="en">Supporting <span>&#127464;&#127462;</span> Canada-based users of <a href="https://qgis.org/">QGIS</a>, a free and Open Source Geographic Information System.</span>
+      <span class="fr">Au service des utilisateurs <span>&#127464;&#127462;</span> canadiens de <a href="https://qgis.org/">QGIS</a>, un système d'information géographique (SIG) libre et open source.</span>
     </p>
     <div class="osgeo-badge">
-      QGIS is an <a href="https://osgeo.org" target="_blank">OSGeo</a> project
+      <span class="en">QGIS is an <a href="https://osgeo.org" target="_blank">OSGeo</a> project</span>
+      <span class="fr">QGIS est un projet <a href="https://osgeo.org" target="_blank">OSGeo</a></span>
     </div>
   </section>
 
   <!-- Feature Cards -->
   <section class="features">
     <div class="feature-card">
-      <h3>User Meetings</h3>
-      <p>Join our monthly virtual meetings. <a href="#meetings">Details</a></p>
+      <h3>
+        <span class="en">User Meetings</span>
+        <span class="fr">Rencontres d'utilisateurs</span>
+      </h3>
+      <p>
+        <span class="en">Join our monthly virtual meetings. <a href="#meetings">Details</a></span>
+        <span class="fr">Participez à nos rencontres virtuelles mensuelles. <a href="#meetings">Détails</a></span>
+      </p>
     </div>
     <div class="feature-card">
-      <h3>Online Discussions</h3>
-      <p>Join our <a href="https://www.linkedin.com/groups/18131068/">LinkedIn group</a> or the <a href="https://discourse.osgeo.org/c/qgis/qgis-ca/">Discourse group</a> (new!) to discuss GIS projects, challenges, and opportunities in Canada.</p>
+      <h3>
+        <span class="en">Online Discussions</span>
+        <span class="fr">Discussions en ligne</span>
+      </h3>
+      <p>
+        <span class="en">Join our <a href="https://www.linkedin.com/groups/18131068/">LinkedIn group</a> or the <a href="https://discourse.osgeo.org/c/qgis/qgis-ca/">Discourse group</a> (new!) to discuss GIS projects, challenges, and opportunities in Canada.</span>
+        <span class="fr">Joignez-vous à notre <a href="https://www.linkedin.com/groups/18131068/">groupe LinkedIn</a> ou au <a href="https://discourse.osgeo.org/c/qgis/qgis-ca/">groupe Discourse</a> (nouveau&nbsp;!) pour discuter de projets SIG, d'enjeux et d'occasions à saisir au Canada.</span>
+      </p>
     </div>
     <div class="feature-card">
-      <h3>Learn about QGIS</h3>
-      <p><a href="https://qgis.org/en/site/">QGIS</a> is the most popular open source GIS desktop tool in the world.</p>
+      <h3>
+        <span class="en">Learn about QGIS</span>
+        <span class="fr">Découvrir QGIS</span>
+      </h3>
+      <p>
+        <span class="en"><a href="https://qgis.org/en/site/">QGIS</a> is the most popular open source GIS desktop tool in the world.</span>
+        <span class="fr"><a href="https://qgis.org/en/site/">QGIS</a> est le logiciel SIG de bureau libre le plus utilisé au monde.</span>
+      </p>
     </div>
   </section>
 
   <!-- About Section -->
   <section class="content-section" id="about">
-    <h2 class="section-title">Group Goals</h2>
+    <h2 class="section-title">
+      <span class="en">Group Goals</span>
+      <span class="fr">Objectifs du groupe</span>
+    </h2>
     <div class="section-content">
       <ul>
-        <li>Promote the use of QGIS in Canada's government agencies, educational institutions, and private sector</li>
-        <li>Provide training and support for new QGIS users in Canada</li>
-        <li>Coordinate local QGIS development and customization for Canadian needs</li>
-        <li>Share information about QGIS through meetings, social media, and local GIS events</li>
-        <li>Support translation of QGIS documentation into French</li>
-        <li>Create specialized modules for local applications (agriculture, urban planning, conservation)</li>
-        <li>Organize regular user meetings across Canada</li>
-        <li>Connect Canadian QGIS users with the global QGIS community</li>
+        <li>
+          <span class="en">Promote the use of QGIS in Canada's government agencies, educational institutions, and private sector</span>
+          <span class="fr">Promouvoir l'utilisation de QGIS dans les ministères et organismes publics, les établissements d'enseignement et le secteur privé au Canada</span>
+        </li>
+        <li>
+          <span class="en">Provide training and support for new QGIS users in Canada</span>
+          <span class="fr">Offrir de la formation et du soutien aux nouveaux utilisateurs de QGIS au Canada</span>
+        </li>
+        <li>
+          <span class="en">Coordinate local QGIS development and customization for Canadian needs</span>
+          <span class="fr">Coordonner le développement et la personnalisation de QGIS à l'échelle locale pour répondre aux besoins canadiens</span>
+        </li>
+        <li>
+          <span class="en">Share information about QGIS through meetings, social media, and local GIS events</span>
+          <span class="fr">Diffuser de l'information sur QGIS lors de rencontres, sur les réseaux sociaux et dans les événements SIG locaux</span>
+        </li>
+        <li>
+          <span class="en">Support translation of QGIS documentation into French</span>
+          <span class="fr">Soutenir la traduction en français de la documentation de QGIS</span>
+        </li>
+        <li>
+          <span class="en">Create specialized modules for local applications (agriculture, urban planning, conservation)</span>
+          <span class="fr">Créer des modules spécialisés pour des applications locales (agriculture, urbanisme, conservation)</span>
+        </li>
+        <li>
+          <span class="en">Organize regular user meetings across Canada</span>
+          <span class="fr">Organiser des rencontres régulières d'utilisateurs partout au Canada</span>
+        </li>
+        <li>
+          <span class="en">Connect Canadian QGIS users with the global QGIS community</span>
+          <span class="fr">Mettre en contact les utilisateurs canadiens de QGIS avec la communauté internationale</span>
+        </li>
       </ul>
     </div>
   </section>
 
-  <!-- Meetings Section -->
+  <!-- Meetings Section
+       Update the meeting details in the .meeting-info block below before
+       each monthly meeting, in both languages. -->
   <section class="content-section" id="meetings">
-    <h2 class="section-title">Join Our Community</h2>
+    <h2 class="section-title">
+      <span class="en">Join Our Community</span>
+      <span class="fr">Joignez-vous à notre communauté</span>
+    </h2>
     <div class="section-content">
-      <p>We plan to hold monthly virtual meetings on the third Thursday of each month. Our meetings may include:</p>
+      <p>
+        <span class="en">We plan to hold monthly virtual meetings on the third Thursday of each month. Our meetings may include:</span>
+        <span class="fr">Nous prévoyons d'organiser des rencontres virtuelles mensuelles, le troisième jeudi du mois. Elles pourront comprendre&nbsp;:</span>
+      </p>
       <ul>
-        <li>QGIS tutorials and workshops</li>
-        <li>Presentations of local GIS projects</li>
-        <li>Problem-solving sessions</li>
-        <li>Networking opportunities</li>
+        <li>
+          <span class="en">QGIS tutorials and workshops</span>
+          <span class="fr">Tutoriels et ateliers QGIS</span>
+        </li>
+        <li>
+          <span class="en">Presentations of local GIS projects</span>
+          <span class="fr">Présentations de projets SIG locaux</span>
+        </li>
+        <li>
+          <span class="en">Problem-solving sessions</span>
+          <span class="fr">Séances de résolution de problèmes</span>
+        </li>
+        <li>
+          <span class="en">Networking opportunities</span>
+          <span class="fr">Occasions de réseautage</span>
+        </li>
       </ul>
       <div class="meeting-info">
-        <strong>Next Meeting</strong>
+        <strong>
+          <span class="en">Next Meeting</span>
+          <span class="fr">Prochaine rencontre</span>
+        </strong>
         <!--<p>Date: Last Thursday of next month<br>-->
-        <p>Date: Thurs. October 15, 2026<br>
-        Time: 10am Pacific / 1pm Eastern / 2pm Atlantic<br>
-        Length: 1 hour<br>
-        Location: <a href="https://meet.osgeo.org/QGISCanada" target="_blank">https://meet.osgeo.org/QGISCanada</a><br>
-        Agenda: <a href="https://github.com/QGIS-ca/qgis-ca-website/wiki/QGIS-Canada-User-Group-Meeting-2026-10-15" target="_blank">https://github.com/QGIS-ca/qgis-ca-website/wiki/QGIS-Canada-User-Group-Meeting-2026-10-15</a></p>
+        <p>
+          <span class="en">Date: Thurs. October 15, 2026</span>
+          <span class="fr">Date&nbsp;: jeudi 15 octobre 2026</span><br>
+          <span class="en">Time: 10am Pacific / 1pm Eastern / 2pm Atlantic</span>
+          <span class="fr">Heure&nbsp;: 10&nbsp;h (Pacifique) / 13&nbsp;h (Est) / 14&nbsp;h (Atlantique)</span><br>
+          <span class="en">Length: 1 hour</span>
+          <span class="fr">Durée&nbsp;: 1&nbsp;heure</span><br>
+          <span class="en">Location:</span> <span class="fr">Lieu&nbsp;:</span> <a href="https://meet.osgeo.org/QGISCanada" target="_blank">https://meet.osgeo.org/QGISCanada</a><br>
+          <span class="en">Agenda:</span> <span class="fr">Ordre du jour&nbsp;:</span> <a href="https://github.com/QGIS-ca/qgis-ca-website/wiki/QGIS-Canada-User-Group-Meeting-2026-10-15" target="_blank">https://github.com/QGIS-ca/qgis-ca-website/wiki/QGIS-Canada-User-Group-Meeting-2026-10-15</a>
+        </p>
       </div>
     </div>
   </section>
 
   <!-- New Users Section -->
   <section class="content-section">
-    <h2 class="section-title">New to QGIS? Join us!</h2>
+    <h2 class="section-title">
+      <span class="en">New to QGIS? Join us!</span>
+      <span class="fr">Vous débutez avec QGIS&nbsp;? Joignez-vous à nous&nbsp;!</span>
+    </h2>
     <div class="section-content">
-      <p>Whether you're a GIS professional or just getting started, our community welcomes you. We offer regular training sessions and workshops suitable for beginners. Our members work in various sectors including...TBD.</p>
+      <p>
+        <span class="en">Whether you're a GIS professional or just getting started, our community welcomes you. We offer regular training sessions and workshops suitable for beginners. Our members work in various sectors including...TBD.</span>
+        <span class="fr">Que vous soyez professionnel des SIG ou en tout début d'apprentissage, notre communauté vous accueille. Nous offrons régulièrement des séances de formation et des ateliers adaptés aux débutants. Nos membres travaillent dans divers secteurs, notamment... à déterminer.</span>
+      </p>
     </div>
   </section>
 
   <!-- Online Community Section -->
   <section class="content-section" id="contact">
-    <h2 class="section-title">Connect Online</h2>
+    <h2 class="section-title">
+      <span class="en">Connect Online</span>
+      <span class="fr">Rejoignez-nous en ligne</span>
+    </h2>
     <div class="section-content">
-      <p>Join our active online community through:</p>
+      <p>
+        <span class="en">Join our active online community through:</span>
+        <span class="fr">Joignez-vous à notre communauté en ligne&nbsp;:</span>
+      </p>
       <ul>
-        <li>Our <a href="https://www.linkedin.com/groups/18131068/" target="_blank">LinkedIn group</a></li>      
-        <li>Our <a href="https://discourse.osgeo.org/c/qgis/qgis-ca/" target="_blank">Discourse group</a>
+        <li>
+          <span class="en">Our <a href="https://www.linkedin.com/groups/18131068/" target="_blank">LinkedIn group</a></span>
+          <span class="fr">Notre <a href="https://www.linkedin.com/groups/18131068/" target="_blank">groupe LinkedIn</a></span>
+        </li>
+        <li>
+          <span class="en">Our <a href="https://discourse.osgeo.org/c/qgis/qgis-ca/" target="_blank">Discourse group</a></span>
+          <span class="fr">Notre <a href="https://discourse.osgeo.org/c/qgis/qgis-ca/" target="_blank">groupe Discourse</a></span>
           <ul>
-            <li>modern community platform for discussions</li>
-            <li>you can just use it as a mailing list instead, if you don't want to use the interface</li>
-            <li>start by introducing yourself, or ask any QGIS-related question</li>
-            <li>discuss in French or English of course</li>
+            <li>
+              <span class="en">modern community platform for discussions</span>
+              <span class="fr">une plateforme de discussion moderne pour la communauté</span>
+            </li>
+            <li>
+              <span class="en">you can just use it as a mailing list instead, if you don't want to use the interface</span>
+              <span class="fr">vous pouvez aussi l'utiliser comme une simple liste de diffusion, sans passer par l'interface</span>
+            </li>
+            <li>
+              <span class="en">start by introducing yourself, or ask any QGIS-related question</span>
+              <span class="fr">présentez-vous, ou posez toute question en lien avec QGIS</span>
+            </li>
+            <li>
+              <span class="en">discuss in French or English of course</span>
+              <span class="fr">les échanges se font en français ou en anglais, bien entendu</span>
+            </li>
           </ul>
         </li>
         <!--<li>WhatsApp group for quick questions and updates</li>-->
-        <li>Monthly virtual meetings</li>
+        <li>
+          <span class="en">Monthly virtual meetings</span>
+          <span class="fr">Nos rencontres virtuelles mensuelles</span>
           <ul>
-            <li>list of meetings: <a href="https://github.com/QGIS-ca/qgis-ca-website/wiki#meetings" target="_blank">https://github.com/QGIS-ca/qgis-ca-website/wiki#meetings</a></li>
-          </ul>        
-        <li>Email: info@qgis.ca</li>
+            <li>
+              <span class="en">list of meetings:</span>
+              <span class="fr">liste des rencontres&nbsp;:</span>
+              <a href="https://github.com/QGIS-ca/qgis-ca-website/wiki#meetings" target="_blank">https://github.com/QGIS-ca/qgis-ca-website/wiki#meetings</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span class="en">Email: info@qgis.ca</span>
+          <span class="fr">Courriel&nbsp;: info@qgis.ca</span>
+        </li>
       </ul>
     </div>
   </section>
@@ -591,7 +782,7 @@
               <path d="M24.58 66.41a31.61 31.61 0 0 1 47.05-40.12 31.61 31.61 0 0 0-49 39.63l-3.76 18.9Z"/>
             </svg>
           </a>
-        </li>        
+        </li>
         <li>
           <a href="https://github.com/QGIS-ca/qgis-ca-website" aria-label="GitHub" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
@@ -600,10 +791,57 @@
           </a>
         </li>
       </ul>
-      <p class="footer-text">If not stated otherwise, all content is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" style="color: white; text-decoration: underline;" target="_blank">Creative Commons Attribution-ShareAlike 4.0 licence (CC BY-SA)</a></p>
+      <p class="footer-text">
+        <span class="en">If not stated otherwise, all content is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" style="color: white; text-decoration: underline;" target="_blank">Creative Commons Attribution-ShareAlike 4.0 licence (CC BY-SA)</a></span>
+        <span class="fr">Sauf indication contraire, tout le contenu est diffusé sous <a href="https://creativecommons.org/licenses/by-sa/4.0/" style="color: white; text-decoration: underline;" target="_blank">licence Creative Commons Attribution et Partage dans les mêmes conditions 4.0 (CC BY-SA)</a></span>
+      </p>
       <!--<p class="footer-text">Select graphics from <a href="http://thenounproject.com" style="color: white; text-decoration: underline;">The Noun Project</a></p>-->
-      <p class="footer-text">Kindly hosted by <a href="https://gatewaygeomatics.com/" style="color: white; text-decoration: underline;" target="_blank">GatewayGeo</a></p>
+      <p class="footer-text">
+        <span class="en">Kindly hosted by <a href="https://gatewaygeomatics.com/" style="color: white; text-decoration: underline;" target="_blank">GatewayGeo</a></span>
+        <span class="fr">Gracieusement hébergé par <a href="https://gatewaygeomatics.com/" style="color: white; text-decoration: underline;" target="_blank">GatewayGeo</a></span>
+      </p>
     </div>
   </footer>
+
+  <script>
+    // Language handling. The content itself is duplicated in the HTML
+    // (span.en / span.fr pairs); this script only decides which language
+    // is active. It flips the class on <body>, keeps <html lang> in sync
+    // for screen readers and search engines, and remembers the choice.
+    const btnLang = document.getElementById('btn-lang');
+
+    const pageTitles = {
+      en: 'QGIS Canada User Group',
+      fr: "Groupe d'utilisateurs QGIS Canada"
+    };
+
+    function setLang(lang) {
+      document.body.classList.remove('lang-en', 'lang-fr');
+      document.body.classList.add('lang-' + lang);
+      document.documentElement.lang = lang;
+      document.title = pageTitles[lang];
+      // The button shows the language you would switch to
+      btnLang.textContent = lang === 'en' ? 'FR' : 'EN';
+      try {
+        localStorage.setItem('qgis-ca-lang', lang);
+      } catch (e) {
+        // storage unavailable (private browsing, etc.): no persistence, fine
+      }
+    }
+
+    // First visit: follow the browser language. Later visits: saved choice.
+    let saved = null;
+    try {
+      saved = localStorage.getItem('qgis-ca-lang');
+    } catch (e) {}
+    if (saved !== 'en' && saved !== 'fr') {
+      saved = (navigator.language || '').toLowerCase().startsWith('fr') ? 'fr' : 'en';
+    }
+    setLang(saved);
+
+    btnLang.addEventListener('click', function () {
+      setLang(document.documentElement.lang === 'en' ? 'fr' : 'en');
+    });
+  </script>
 </body>
 </html>
