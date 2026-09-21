@@ -406,6 +406,9 @@
     so someone else can fill it in.
     The language button, the <html lang> attribute and the remembered
     preference are handled by the short script at the bottom of the file.
+    The user-group <select> cannot use hidden spans (option text is not
+    styled that way). Give each <option> and <optgroup> data-en and data-fr
+    attributes instead; the script copies the matching one into the label.
   -->
 
   <!-- Navigation -->
@@ -436,56 +439,55 @@
           </a>
         </li>
         <li>
-          <!-- Options are kept bilingual ("English / Français") to avoid
-               duplicating the whole select. When adding a user group, keep
-               that format. -->
+          <!-- Options use data-en / data-fr so the language toggle can
+               rewrite labels. When adding a user group, keep that format. -->
           <select class="user-group-select" id="other_groups" onchange="if(this.value && this.value !== '#') { window.open(this.value, '_blank'); this.selectedIndex = 0; }">
-            <option value="">Other User Groups / Autres groupes</option>
-            <optgroup label="Africa / Afrique">
-              <option value="https://dz.qgis.org/">Algeria / Algérie</option>
-              <option value="https://qgisghana.org/">Ghana</option>
-              <option value="https://qgis.or.ke/">Kenya</option>
-              <option value="https://heed725.github.io/qgistz/">Tanzania / Tanzanie</option>
+            <option value="" selected data-en="Other User Groups" data-fr="Autres groupes">Other User Groups</option>
+            <optgroup data-en="Africa" data-fr="Afrique" label="Africa">
+              <option value="https://dz.qgis.org/" data-en="Algeria" data-fr="Algérie">Algeria</option>
+              <option value="https://qgisghana.org/" data-en="Ghana" data-fr="Ghana">Ghana</option>
+              <option value="https://qgis.or.ke/" data-en="Kenya" data-fr="Kenya">Kenya</option>
+              <option value="https://heed725.github.io/qgistz/" data-en="Tanzania" data-fr="Tanzanie">Tanzania</option>
             </optgroup>
-            <optgroup label="Asia / Asie">
-              <option value="https://qgis.am/">Armenia / Arménie</option>
-              <option value="https://in.qgis.org/">India / Inde</option>
-              <option value="https://qgis-id.github.io/">Indonesia / Indonésie</option>
-              <option value="https://qgis.jp/">Japan / Japon</option>
+            <optgroup data-en="Asia" data-fr="Asie" label="Asia">
+              <option value="https://qgis.am/" data-en="Armenia" data-fr="Arménie">Armenia</option>
+              <option value="https://in.qgis.org/" data-en="India" data-fr="Inde">India</option>
+              <option value="https://qgis-id.github.io/" data-en="Indonesia" data-fr="Indonésie">Indonesia</option>
+              <option value="https://qgis.jp/" data-en="Japan" data-fr="Japon">Japan</option>
             </optgroup>
-            <optgroup label="Europe">
-              <option value="https://qgis-al.blogspot.com/">Albania / Albanie</option>
-              <option value="https://qgis.dk/">Denmark / Danemark</option>
-              <option value="https://www.osgeo.fr/association/qgis-fr/">France</option>
-              <option value="https://qgis.de/">Germany / Allemagne</option>
-              <option value="https://ieqgis.com/category/qgis/">Ireland / Irlande</option>
-              <option value="http://www.qgis.it/">Italy / Italie</option>
-              <option value="https://qgis.nl/">Netherlands / Pays-Bas</option>
-              <option value="https://qgis-mk.blogspot.com/">North Macedonia / Macédoine du Nord</option>
-              <option value="https://www.qgis.no/">Norway / Norvège</option>
-              <option value="https://qgis.pl/">Poland / Pologne</option>
-              <option value="https://www.qgis.pt/">Portugal</option>
-              <option value="https://qgis.ro/">Romania / Roumanie</option>
-              <option value="https://qgis.sk/">Slovakia / Slovaquie</option>
-              <option value="https://www.qgis.es/">Spain / Espagne</option>
-              <option value="https://www.qgis.se/">Sweden / Suède</option>
-              <option value="https://www.qgis.ch/">Switzerland / Suisse</option>
-              <option value="https://uk.osgeo.org/qgis.html">UK / Royaume-Uni</option>
+            <optgroup data-en="Europe" data-fr="Europe" label="Europe">
+              <option value="https://qgis-al.blogspot.com/" data-en="Albania" data-fr="Albanie">Albania</option>
+              <option value="https://qgis.dk/" data-en="Denmark" data-fr="Danemark">Denmark</option>
+              <option value="https://www.osgeo.fr/association/qgis-fr/" data-en="France" data-fr="France">France</option>
+              <option value="https://qgis.de/" data-en="Germany" data-fr="Allemagne">Germany</option>
+              <option value="https://ieqgis.com/category/qgis/" data-en="Ireland" data-fr="Irlande">Ireland</option>
+              <option value="http://www.qgis.it/" data-en="Italy" data-fr="Italie">Italy</option>
+              <option value="https://qgis.nl/" data-en="Netherlands" data-fr="Pays-Bas">Netherlands</option>
+              <option value="https://qgis-mk.blogspot.com/" data-en="North Macedonia" data-fr="Macédoine du Nord">North Macedonia</option>
+              <option value="https://www.qgis.no/" data-en="Norway" data-fr="Norvège">Norway</option>
+              <option value="https://qgis.pl/" data-en="Poland" data-fr="Pologne">Poland</option>
+              <option value="https://www.qgis.pt/" data-en="Portugal" data-fr="Portugal">Portugal</option>
+              <option value="https://qgis.ro/" data-en="Romania" data-fr="Roumanie">Romania</option>
+              <option value="https://qgis.sk/" data-en="Slovakia" data-fr="Slovaquie">Slovakia</option>
+              <option value="https://www.qgis.es/" data-en="Spain" data-fr="Espagne">Spain</option>
+              <option value="https://www.qgis.se/" data-en="Sweden" data-fr="Suède">Sweden</option>
+              <option value="https://www.qgis.ch/" data-en="Switzerland" data-fr="Suisse">Switzerland</option>
+              <option value="https://uk.osgeo.org/qgis.html" data-en="UK" data-fr="Royaume-Uni">UK</option>
             </optgroup>
-            <optgroup label="Latin America and the Caribbean / Amérique latine et Caraïbes">
-              <option value="http://qgis.ar/">Argentina / Argentine</option>
-              <option value="https://qgisbrasil.org/">Brazil / Brésil</option>
-              <option value="https://github.com/qgisco">Colombia / Colombie</option>
-              <option value="https://qgis.ec/">Ecuador / Équateur</option>
-              <option value="https://qgis.mx/">Mexico / Mexique</option>
-              <option value="https://qgis.pe/">Peru / Pérou</option>
+            <optgroup data-en="Latin America and the Caribbean" data-fr="Amérique latine et Caraïbes" label="Latin America and the Caribbean">
+              <option value="http://qgis.ar/" data-en="Argentina" data-fr="Argentine">Argentina</option>
+              <option value="https://qgisbrasil.org/" data-en="Brazil" data-fr="Brésil">Brazil</option>
+              <option value="https://github.com/qgisco" data-en="Colombia" data-fr="Colombie">Colombia</option>
+              <option value="https://qgis.ec/" data-en="Ecuador" data-fr="Équateur">Ecuador</option>
+              <option value="https://qgis.mx/" data-en="Mexico" data-fr="Mexique">Mexico</option>
+              <option value="https://qgis.pe/" data-en="Peru" data-fr="Pérou">Peru</option>
             </optgroup>
-            <optgroup label="North America / Amérique du Nord">
-              <option value="#" selected>Canada</option>
-              <option value="https://www.qgis-us.org/">United States / États-Unis</option>
+            <optgroup data-en="North America" data-fr="Amérique du Nord" label="North America">
+              <option value="#" data-en="Canada" data-fr="Canada">Canada</option>
+              <option value="https://www.qgis-us.org/" data-en="United States" data-fr="États-Unis">United States</option>
             </optgroup>
-            <optgroup label="Oceania / Océanie">
-              <option value="https://qgis-australia.org/">Australia / Australie</option>
+            <optgroup data-en="Oceania" data-fr="Océanie" label="Oceania">
+              <option value="https://qgis-australia.org/" data-en="Australia" data-fr="Australie">Australia</option>
             </optgroup>
           </select>
         </li>
@@ -809,11 +811,24 @@
     // is active. It flips the class on <body>, keeps <html lang> in sync
     // for screen readers and search engines, and remembers the choice.
     const btnLang = document.getElementById('btn-lang');
+    const groupSelect = document.getElementById('other_groups');
 
     const pageTitles = {
       en: 'QGIS Canada User Group',
       fr: "Groupe d'utilisateurs QGIS Canada"
     };
+
+    function applySelectLang(lang) {
+      if (!groupSelect) return;
+      groupSelect.querySelectorAll('[data-en][data-fr]').forEach(function (el) {
+        const text = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
+        if (el.tagName === 'OPTGROUP') {
+          el.label = text;
+        } else {
+          el.textContent = text;
+        }
+      });
+    }
 
     function setLang(lang) {
       document.body.classList.remove('lang-en', 'lang-fr');
@@ -822,6 +837,7 @@
       document.title = pageTitles[lang];
       // The button shows the language you would switch to
       btnLang.textContent = lang === 'en' ? 'FR' : 'EN';
+      applySelectLang(lang);
       try {
         localStorage.setItem('qgis-ca-lang', lang);
       } catch (e) {
