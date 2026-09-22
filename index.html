@@ -395,6 +395,30 @@
         gap: 0.5rem;
       }
     }
+    
+    /* Official-group ribbon — under the header, right side */
+    .official-ribbon {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+
+    .official-ribbon-text {
+      margin-top: 0.6rem;
+      padding: 0.35rem 0.9rem;
+      background: linear-gradient(90deg, #589632, #93b023);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      line-height: 1.3;
+      text-align: center;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
   </style>
 </head>
 <body class="lang-en">
@@ -499,6 +523,14 @@
       </ul>
     </div>
   </nav>
+  
+  <!-- ribbon -->
+  <div class="official-ribbon">
+    <div class="official-ribbon-text">
+      <span class="en">🎉Approved as official user group on 2026-09-17🥳</span>
+      <span class="fr">🎉Approuvé comme groupe d'utilisateurs officiel le 2026-09-17🥳</span>
+    </div>
+  </div>  
 
   <!-- Hero Section -->
   <section class="hero">
