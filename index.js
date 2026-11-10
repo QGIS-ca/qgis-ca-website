@@ -59,8 +59,8 @@ const closeBtn = document.getElementById('close-poster');
 
 if (modal && posterImg && openBtn && closeBtn) {
   const posterSrc = {
-    en: './images/affiche_quartier_latin_craie_jour_vivant_logo_brut_legal_300ppp_texte_en.png',
-    fr: './images/affiche_quartier_latin_craie_jour_vivant_logo_brut_legal_300ppp_texte_fr.png'
+    en: './images/QGIS_Canada_meeting_affiche_courriel_horizontal_EN.jpg',
+    fr: './images/QGIS_Canada_rencontre_affiche_courriel_horizontal_FR.jpg'
   };
 
   function updatePoster() {
